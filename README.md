@@ -2,19 +2,19 @@
 
 ## Usage
 
-`hipr-eth` is [hipr](https://github.com/lukeburns/hipr) middleware that resolves names from Ethereum using light client.
+`hipr-eth` is [hipr](https://github.com/lukeburns/hipr) middleware that resolves names from ethereum.
 
-if you don't have [hipr](https://github.com/lukeburns/hipr) installed, run
-```
-npm i -g hipr
-```
-
-if you don't have a local ethereum light node running, install [`geth`](https://ethereum.org/en/developers/tutorials/run-light-node-geth/) and start a light node on port 8545
+firstly, if you don't have a local ethereum light node running, you need one. install [`geth`](https://ethereum.org/en/developers/tutorials/run-light-node-geth/) and start a light node on port 8545
 ```
 geth --syncmode "light" --http
 ```
 
-once the light client is synced, install the `hipr-eth` middleware
+once the light client is synced, make sure you have [hipr](https://github.com/lukeburns/hipr) installed
+```
+npm i -g hipr
+```
+
+finally install the `hipr-eth` middleware
 ```
 hipr install hipr-eth
 ```

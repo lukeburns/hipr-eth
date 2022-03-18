@@ -1,6 +1,6 @@
 {
   "name": "hipr-eth",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "peerDependencies": {
     "bns": "^0.15.0",
-    "hipr": "^0.4.1"
+    "hipr": "^0.5.2"
   },
   "devDependencies": {
     "bmocha": "^2.1.5"

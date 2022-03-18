@@ -6,11 +6,15 @@ const { types } = wire
 const empty = new Zone()
 
 let ready = false
-const ethereum = new Ethereum({
-  // projectId: node.config.str('handover-infura-projectid'),
-  // projectSecret: node.config.str('handover-infura-projectsecret')
+const ethereum = new Ethereum()
+ethereum.init().then(() => {
+  ready = true
+  console.log('[eth] initialized')
+}).catch(err => {
+  while (err.error) { err = err.error }
+  err = ((err.message || '').split(':').slice(-1)[0] || '').trim()
+  console.log(`[eth] failed to initialize : ${err}`)
 })
-ethereum.init().then(() => ready = true).catch(console.error)
 
 module.exports = middleware
 
@@ -21,7 +25,10 @@ function middleware () {
       type = types[type]
 
       if (!ready) {
-        return null
+        console.log('[eth] waiting for ethers to initialize')
+        const res = empty.resolve(name, types[type]);
+        res.code = codes.SERVFAIL; // ensure response not cached
+        return res;
       }
 
       const labels = util.split(name)
