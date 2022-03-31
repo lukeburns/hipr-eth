@@ -6,15 +6,22 @@ const { types } = wire
 const empty = new Zone()
 
 let ready = false
-const ethereum = new Ethereum()
-ethereum.init().then(() => {
+const handleInit = () => {
   ready = true
   console.log('[eth] initialized')
-}).catch(err => {
+}
+const handleError = err => {
   while (err.error) { err = err.error }
   err = ((err.message || '').split(':').slice(-1)[0] || '').trim()
-  console.log(`[eth] failed to initialize : ${err}`)
-})
+  console.log(`[eth] failed to initialize : ${err} (retrying in 10s)`)
+
+  // retry every 10s
+  setTimeout(() => {
+    ethereum.init().then(handleInit).catch(handleError)
+  }, 10000)
+}
+const ethereum = new Ethereum()
+ethereum.init().then(handleInit).catch(handleError)
 
 module.exports = middleware
 
