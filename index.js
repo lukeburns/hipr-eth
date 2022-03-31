@@ -27,8 +27,8 @@ module.exports = middleware
 
 function middleware () { 
   return {
-    hostname: ':hip5data.:protocol(_eth|eth).:gateway?.', 
-    handler: async function ({ protocol, hip5data }, name, type, res, rc, ns) {
+    hostname: ':data.:protocol(_eth|eth).:gateway?.', 
+    handler: async function ({ protocol, data: hip5data }, name, type, res, rc, ns) {
       type = types[type]
 
       if (!ready) {
